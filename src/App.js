@@ -7,23 +7,16 @@ import SupermarketForm from './SupermarketForm';
 
 function App() {
 
-  const [supermarkets, setSupermarkets] = useState([])
   const [change, setChange] = useState(true)
-
-  useEffect(() => {
-    fetch("http://localhost:9295/supermarkets")
-    .then((r) => r.json())
-    .then((data) => setSupermarkets(data));
-  }, [change]);
+  
 
   return (
     <div>
       <Header/>
       <About/>
       <SupermarketList 
-        supermarkets={supermarkets}
+        change={change}
         setChange={setChange}
-
       />
       <SupermarketForm
         setChange={setChange}

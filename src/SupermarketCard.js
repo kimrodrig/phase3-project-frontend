@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-function SupermarketCard({supermarket, setChange}){
+function SupermarketCard({supermarket, setParameter, parameter}){
 
     const [commodities, setCommodities] = useState([])
     const [divergence, setDivergence] = useState([])
@@ -32,7 +32,7 @@ function SupermarketCard({supermarket, setChange}){
         fetch(`http://localhost:9295/supermarkets/${supermarket.id}`, {method: 'DELETE'})
         .then((r) => r.json())
         .then((deletedSupermarket) => {console.log(deletedSupermarket)});
-        setChange(prev=>!prev)
+        setParameter(parameter)
     }
 
     function patchSupermarket(eggsPrice, milkPrice, flourPrice) {
@@ -47,6 +47,7 @@ function SupermarketCard({supermarket, setChange}){
                 price_of_flour: flourPrice,
             })
         })
+        setParameter(parameter);
     }
 
     function handleSubmit(e) {
