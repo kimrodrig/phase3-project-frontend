@@ -5,9 +5,11 @@ function SupermarketList({supermarkets, showDivergence}){
     
     const [searchResults, setSearchResults] = useState([])    
     const [enteredZip, setEnteredZip] = useState(0)
-    const [cards, setCards] = useState()
+    const [cards, setCards] = useState(supermarkets)
     
-    useEffect(() => {setCards(supermarkets)}, [])
+    console.log(supermarkets)
+    console.log(cards)
+    // useEffect(() => {setCards([1,1,1,1])}, [])
 
     function handleChange(e){
         setEnteredZip(e.target.value)
@@ -17,7 +19,6 @@ function SupermarketList({supermarkets, showDivergence}){
         e.preventDefault()
         searchByZip(enteredZip)
         filterResults()
-        console.log(cards)
     }
 
     function searchByZip (zip) {
@@ -30,7 +31,7 @@ function SupermarketList({supermarkets, showDivergence}){
         setCards(searchResults)
     }   
 
-    // console.log(cards)
+    console.log(cards)
 
     return(
         <div>
