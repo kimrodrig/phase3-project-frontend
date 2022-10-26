@@ -14,15 +14,15 @@ function App() {
     fetch("http://localhost:9295/supermarkets")
     .then((r) => r.json())
     .then((data) => setSupermarkets(data));
-    setChange(!change)
-  }, []);
+  }, [change]);
 
   return (
     <div>
       <Header/>
       <About/>
       <SupermarketList 
-        supermarkets={supermarkets} 
+        supermarkets={supermarkets}
+        setChange={setChange}
 
       />
       <SupermarketForm

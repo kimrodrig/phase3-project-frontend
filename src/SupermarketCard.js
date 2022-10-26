@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-function SupermarketCard({supermarket}){
+function SupermarketCard({supermarket, setChange}){
 
     const [commodities, setCommodities] = useState([])
     const [divergence, setDivergence] = useState([])
@@ -32,6 +32,7 @@ function SupermarketCard({supermarket}){
         fetch(`http://localhost:9295/supermarkets/${supermarket.id}`, {method: 'DELETE'})
         .then((r) => r.json())
         .then((deletedSupermarket) => {console.log(deletedSupermarket)});
+        setChange(prev=>!prev)
     }
 
     function patchSupermarket(eggsPrice, milkPrice, flourPrice) {

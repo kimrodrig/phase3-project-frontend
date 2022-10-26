@@ -1,7 +1,7 @@
 import SupermarketCard from "./SupermarketCard.js"
 import React, {useEffect, useState} from "react"
 
-function SupermarketList({supermarkets, showDivergence}){
+function SupermarketList({supermarkets, setChange}){
     
     const [searchResults, setSearchResults] = useState([])    
     const [enteredZip, setEnteredZip] = useState(0)
@@ -40,7 +40,7 @@ function SupermarketList({supermarkets, showDivergence}){
             </form>
             {supermarkets.map(s => {
             return (
-                <SupermarketCard supermarket={s} />
+                <SupermarketCard supermarket={s} setChange={setChange}/>
             )})}
         </div>
     )
