@@ -11,3 +11,55 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#header {
+  text-align: center;
+  background-color: rgb(130, 165, 226);
+  padding-bottom: 0.5px; 
+}
+
+.home-section {
+  overflow-wrap: break-word;
+  width: 40rem;
+  text-align: center;
+  margin: auto;
+}
+
+#zip_submit {
+  width: 10rem;
+  text-align: center;
+  margin: auto;
+  padding: 1rem 1rem 0.5rem;
+}
+
+#create_form {
+  width: 12rem;
+  margin: auto;
+  text-align: center;
+  background-color: rgb(130, 165, 226);
+  border-radius: 0.875rem;
+  padding: 1rem 1rem 0.5rem;
+}
+
+#display_form {
+  width: 15rem;
+  color: #fff;
+  background-color: #2b2b3b;
+  border-radius: 0.875rem;
+  padding: 1rem 1rem 1rem;
+}
+
+button {
+  border: none;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid darkgray;
+  font-size: 0.85rem;
+  padding: 0.25rem;
+  width: 99%;
+}

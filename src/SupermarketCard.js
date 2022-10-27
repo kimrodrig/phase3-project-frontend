@@ -58,7 +58,7 @@ function SupermarketCard({supermarket, setParameter, parameter}){
     }
 
     return (
-        <div>
+        <div id="display_form">
             <h2> {supermarket.name}, {supermarket.zipcode} </h2>
             <p>Price index: {price_index}</p>
             {commodities.map(c => {
