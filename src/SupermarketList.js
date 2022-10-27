@@ -29,7 +29,7 @@ function SupermarketList({change, setChange}){
     console.log(parameter)
 
     return(
-        <div>
+        <div id="zip_submit">
             <form onSubmit={handleSubmit}>
                 <input type="text" name="zipcode" placeholder="your zipcode..." onChange={handleChange}/>
                 <button>Submit</button>

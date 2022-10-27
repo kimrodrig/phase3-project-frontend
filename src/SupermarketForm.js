@@ -30,7 +30,7 @@ function SupermarketForm({postSupermarket, setChange}) {
     }
 
     return (
-        <div>
+        <div id="create_form">
             <form onSubmit={handleSubmit}>
                 <input type="text" onChange={(e)=>setName(e.target.value)} placeholder="Name..."/>
                 <input type="text" onChange={(e)=>setZipcode(e.target.value)} placeholder="Zipcode..."/>

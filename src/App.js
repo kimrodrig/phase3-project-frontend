@@ -1,6 +1,6 @@
 import './App.css';
 import Header from './Header.js';
-import About from './About.js';
+import Home from './Home.js';
 import SupermarketList from './SupermarketList.js';
 import React, {useState, useEffect} from 'react';
 import SupermarketForm from './SupermarketForm';
@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <Header/>
-      <About/>
+      <Home/>
       <SupermarketList 
         change={change}
         setChange={setChange}
