@@ -32,7 +32,6 @@ function SupermarketCard({supermarket, setParameter, parameter}){
         fetch(`http://localhost:9295/supermarkets/${supermarket.id}`, {method: 'DELETE'})
         .then((r) => r.json())
         .then((deletedSupermarket) => {console.log(deletedSupermarket)});
-        setParameter(parameter)
     }
 
     function patchSupermarket(eggsPrice, milkPrice, flourPrice) {

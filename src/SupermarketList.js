@@ -11,10 +11,13 @@ function SupermarketList({change, setChange}){
         fetch(`http://localhost:9295/supermarkets${parameter}`)
         .then((r) => r.json())
         .then((data) => {
-            if (data == null) {setParameter("")}
+            if (data == null) {
+                alert("That zipcode is not in our database. Please enter another.")
+                setParameter("")
+            }
             else setSupermarkets(data)
         })
-    }, [parameter]);
+    }, [parameter])
 
     function handleChange(e){
         setEnteredZip(e.target.value)
