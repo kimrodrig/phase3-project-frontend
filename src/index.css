@@ -63,3 +63,11 @@ input {
   padding: 0.25rem;
   width: 99%;
 }
+
+nav a {
+  display: inline-block;
+  margin: 1.0rem 1.0rem;
+  text-decoration: none;
+  font-variant: small-caps;
+  text-align: center;
+}
