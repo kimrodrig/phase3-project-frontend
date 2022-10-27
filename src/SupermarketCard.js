@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 
-function SupermarketCard({supermarket, setRerender}){
+function SupermarketCard({supermarket, setRerender, rerender}){
 
     const [commodities, setCommodities] = useState([])
     const [divergence, setDivergence] = useState([])
-    const [price_index, setPriceIndex] = useState(0)
     const [isHidden, setIsHidden] = useState(true)
     const [eggsPrice, setEggsPrice] = useState(0)
     const [milkPrice, setMilkPrice] = useState(0)
@@ -31,9 +30,8 @@ function SupermarketCard({supermarket, setRerender}){
     function deleteSupermarket(){
         fetch(`http://localhost:9295/supermarkets/${supermarket.id}`, {method: 'DELETE'})
         .then((r) => r.json())
-        .then((deletedSupermarket) => {
+        .then(() => {
             setRerender(prev => !prev)
-            console.log(deletedSupermarket)
         });
     }
 
@@ -50,7 +48,9 @@ function SupermarketCard({supermarket, setRerender}){
             })
         }).then((r) => r.json())
         .then(() => {
-            setRerender(prev => !prev)
+            // setRerender(prev => !prev)
+            window.alert('Prices updated!')
+            window.location.reload()
         });
     }
 
@@ -68,25 +68,23 @@ function SupermarketCard({supermarket, setRerender}){
     }
 
     return (
-        <div id="display_form">
+        <div class="card">
             <h2> {supermarket.name}, {supermarket.zipcode} </h2>
             {commodities.map(c => {
                 if (c.name === "eggs"){
-                    return (
-                        <p>{c.amount} {c.name}: {c.price}</p>
-                    )
+                    return (<p>{c.amount} {c.name}: ${c.price}</p>)
                 }
-                else return (
-                    <p>{c.amount} of {c.name}: {c.price}</p>
-                )
+                else return (<p>{c.amount} of {c.name}: ${c.price}</p>)
             })}
+            <br></br>
             {divergence.map(s => {
-                return (
-                    <p>{s}</p>
-                )
+                return (<p>{s}</p>)
             })}
-            <button onClick={deleteSupermarket}>Delete</button>
-            <button onClick={e=>setIsHidden(prev => !prev)}>Edit Prices</button>
+            <br></br>
+            <div class="button-div">
+                <button onClick={deleteSupermarket}>Delete</button>
+                <button onClick={e=>setIsHidden(prev => !prev)}>Edit Prices</button>
+            </div>
             <div id="priceUpdateForm" style={{display: isHidden ? "none" : "block"}}>
                 <form onSubmit={handleSubmit}>
                     <label>

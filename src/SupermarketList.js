@@ -1,12 +1,14 @@
 import SupermarketCard from "./SupermarketCard.js"
 import React, {useEffect, useState} from "react"
 
-function SupermarketList({}){
+function SupermarketList(){
     
     const [enteredZip, setEnteredZip] = useState(0)
     const [supermarkets, setSupermarkets] = useState([])
     const [parameter, setParameter] = useState("")
     const [rerender, setRerender] = useState(true)
+
+    console.log(rerender)
 
     useEffect(() => {
         fetch(`http://localhost:9295/supermarkets${parameter}`)
@@ -33,15 +35,19 @@ function SupermarketList({}){
     console.log(parameter)
 
     return(
-        <div id="zip_submit">
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="zipcode" placeholder="your zipcode..." onChange={handleChange}/>
-                <button>Search</button>
-            </form>
-            {supermarkets.map(s => {
-            return (
-                <SupermarketCard supermarket={s} setRerender={setRerender}/>
-            )})}
+        <div>
+            <div id="zipsearch">
+                <form onSubmit={handleSubmit}>
+                    <input type="text" name="zipcode" placeholder="your zipcode..." onChange={handleChange}/>
+                    <button>Search</button>
+                </form>
+            </div>
+            <div class="cards">
+                {supermarkets.map(s => {
+                return (
+                    <SupermarketCard supermarket={s} setRerender={setRerender} rerender={rerender}/>
+                )})}
+            </div>
         </div>
     )
 }

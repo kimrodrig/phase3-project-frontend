@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 
-function SupermarketForm({postSupermarket, setChange}) {
+function SupermarketForm({postSupermarket}) {
     const [name, setName] = useState("")
     const [zipcode, setZipcode] = useState(0)
     const [eggsPrice, setEggsPrice] = useState(0)
@@ -14,7 +14,6 @@ function SupermarketForm({postSupermarket, setChange}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setChange(prev=>!prev)
         // check if the form is complete
         if (name === "") {alert("Please enter the supermarket's name")}
         else if (zipcode.toString().length !== 5) {alert("Please enter a 5 digit zipcode")}
