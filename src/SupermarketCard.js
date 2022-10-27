@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-function SupermarketCard({supermarket, setParameter, parameter}){
+function SupermarketCard({supermarket, setRerender}){
 
     const [commodities, setCommodities] = useState([])
     const [divergence, setDivergence] = useState([])
@@ -16,11 +16,11 @@ function SupermarketCard({supermarket, setParameter, parameter}){
         .then((data) => {setCommodities(data)})
     }, [])
 
-    useEffect(() => {
-        fetch(`http://localhost:9295/supermarkets/${supermarket.id}/price_index`)
-        .then((r) => r.json())
-        .then((data) => {setPriceIndex(data)})
-    }, [])
+    // useEffect(() => {
+    //     fetch(`http://localhost:9295/supermarkets/${supermarket.id}/price_index`)
+    //     .then((r) => r.json())
+    //     .then((data) => {setPriceIndex(data)})
+    // }, [])
 
     useEffect(()=> {
         fetch(`http://localhost:9295/supermarkets/${supermarket.id}/comparison`)
@@ -31,7 +31,10 @@ function SupermarketCard({supermarket, setParameter, parameter}){
     function deleteSupermarket(){
         fetch(`http://localhost:9295/supermarkets/${supermarket.id}`, {method: 'DELETE'})
         .then((r) => r.json())
-        .then((deletedSupermarket) => {console.log(deletedSupermarket)});
+        .then((deletedSupermarket) => {
+            setRerender(prev => !prev)
+            console.log(deletedSupermarket)
+        });
     }
 
     function patchSupermarket(eggsPrice, milkPrice, flourPrice) {
@@ -45,8 +48,10 @@ function SupermarketCard({supermarket, setParameter, parameter}){
                 price_of_milk: milkPrice,
                 price_of_flour: flourPrice,
             })
-        })
-        setParameter(parameter);
+        }).then((r) => r.json())
+        .then(() => {
+            setRerender(prev => !prev)
+        });
     }
 
     function handleSubmit(e) {
@@ -54,12 +59,17 @@ function SupermarketCard({supermarket, setParameter, parameter}){
         if (eggsPrice > 0 && milkPrice > 0 && flourPrice > 0){
             patchSupermarket(eggsPrice, milkPrice, flourPrice);
         }
+        else {
+            alert("Please enter valid prices")
+        }
+        e.target.reset()
+        setIsHidden(true)
+        setRerender(prev => !prev)
     }
 
     return (
         <div id="display_form">
             <h2> {supermarket.name}, {supermarket.zipcode} </h2>
-            <p>Price index: {price_index}</p>
             {commodities.map(c => {
                 if (c.name === "eggs"){
                     return (
@@ -91,7 +101,7 @@ function SupermarketCard({supermarket, setParameter, parameter}){
                         Five pounds of flour:
                         <input type="text" onChange={(e)=>setFlourPrice(e.target.value)} placeholder="price..."></input>
                     </label>
-                    <button>Submit</button>
+                    <button>Update Prices</button>
                 </form>
             </div>
         </div>
