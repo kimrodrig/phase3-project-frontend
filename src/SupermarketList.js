@@ -22,6 +22,25 @@ function SupermarketList(){
         })
     }, [parameter, rerender])
 
+    function patchSupermarket(eggsPrice, milkPrice, flourPrice, id) {
+        fetch(`http://localhost:9295/supermarkets/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                price_of_eggs: eggsPrice,
+                price_of_milk: milkPrice,
+                price_of_flour: flourPrice,
+            })
+        }).then((r) => r.json())
+        .then(() => {
+            setRerender(prev => !prev)
+            window.location.reload()
+            alert("Prices updated successfully!")
+        });
+    }
+
     function handleChange(e){
         setEnteredZip(e.target.value)
     }
@@ -31,8 +50,6 @@ function SupermarketList(){
         setParameter(`/byarea/${enteredZip}`)
     }
 
-    console.log(supermarkets)
-    console.log(parameter)
 
     return(
         <div>
@@ -45,7 +62,12 @@ function SupermarketList(){
             <div class="cards">
                 {supermarkets.map(s => {
                 return (
-                    <SupermarketCard supermarket={s} setRerender={setRerender} rerender={rerender}/>
+                    <SupermarketCard 
+                        supermarket={s} 
+                        setRerender={setRerender} 
+                        rerender={rerender}
+                        patchSupermarket={patchSupermarket}
+                    />
                 )})}
             </div>
         </div>

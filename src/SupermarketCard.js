@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-function SupermarketCard({supermarket, setRerender, rerender}){
+function SupermarketCard({supermarket, setRerender, patchSupermarket}){
 
     const [commodities, setCommodities] = useState([])
     const [divergence, setDivergence] = useState([])
@@ -15,19 +15,13 @@ function SupermarketCard({supermarket, setRerender, rerender}){
         .then((data) => {setCommodities(data)})
     }, [])
 
-    // useEffect(() => {
-    //     fetch(`http://localhost:9295/supermarkets/${supermarket.id}/price_index`)
-    //     .then((r) => r.json())
-    //     .then((data) => {setPriceIndex(data)})
-    // }, [])
-
     useEffect(()=> {
         fetch(`http://localhost:9295/supermarkets/${supermarket.id}/comparison`)
         .then((r) => r.json())
         .then((data) => {setDivergence(data)});
     }, []);
 
-    function deleteSupermarket(){
+    function deleteSupermarket(id){
         fetch(`http://localhost:9295/supermarkets/${supermarket.id}`, {method: 'DELETE'})
         .then((r) => r.json())
         .then(() => {
@@ -35,29 +29,10 @@ function SupermarketCard({supermarket, setRerender, rerender}){
         });
     }
 
-    function patchSupermarket(eggsPrice, milkPrice, flourPrice) {
-        fetch(`http://localhost:9295/supermarkets/${supermarket.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                price_of_eggs: eggsPrice,
-                price_of_milk: milkPrice,
-                price_of_flour: flourPrice,
-            })
-        }).then((r) => r.json())
-        .then(() => {
-            // setRerender(prev => !prev)
-            window.alert('Prices updated!')
-            window.location.reload()
-        });
-    }
-
     function handleSubmit(e) {
         e.preventDefault();
         if (eggsPrice > 0 && milkPrice > 0 && flourPrice > 0){
-            patchSupermarket(eggsPrice, milkPrice, flourPrice);
+            patchSupermarket(eggsPrice, milkPrice, flourPrice, supermarket.id);
         }
         else {
             alert("Please enter valid prices")
@@ -89,15 +64,15 @@ function SupermarketCard({supermarket, setRerender, rerender}){
                 <form onSubmit={handleSubmit}>
                     <label>
                         One dozen eggs:
-                        <input type="text" onChange={(e)=>setEggsPrice(e.target.value)} placeholder="price..."></input>
+                        <input type="text" onChange={(e)=>setEggsPrice(e.target.value)} placeholder="price in dollars..."></input>
                     </label>
                     <label>
                         One gallon of milk:
-                        <input type="text" onChange={(e)=>setMilkPrice(e.target.value)} placeholder="price..."></input>
+                        <input type="text" onChange={(e)=>setMilkPrice(e.target.value)} placeholder="price in dollars..."></input>
                     </label>
                     <label>
                         Five pounds of flour:
-                        <input type="text" onChange={(e)=>setFlourPrice(e.target.value)} placeholder="price..."></input>
+                        <input type="text" onChange={(e)=>setFlourPrice(e.target.value)} placeholder="price in dollars..."></input>
                     </label>
                     <button>Update Prices</button>
                 </form>
